@@ -57,7 +57,7 @@ def mid2arry(mid, min_msg_pct=0.1):
         if len(all_arys[i]) < max_len:
             all_arys[i] += [[0] * 88] * (max_len - len(all_arys[i]))
     all_arys = np.array(all_arys)
-    all_arys = all_arys.max(axis=0)
+    # all_arys = all_arys.max(axis=0)
     # trim: remove consecutive 0s in the beginning and at the end
     sums = all_arys.sum(axis=1)
     ends = np.where(sums > 0)[0]
@@ -78,10 +78,8 @@ def extract_melody(piano_roll):
 def downsample_piano_roll(piano_roll, ticks_per_beat, unit_fraction=1/8):
     ticks_per_unit = int(ticks_per_beat * unit_fraction)
     T, N = piano_roll.shape
-    # Trim so it's divisible
     T_trimmed = (T // ticks_per_unit) * ticks_per_unit
     piano_roll = piano_roll[:T_trimmed]
-    # Reshape and aggregate
     piano_roll = piano_roll.reshape(-1, ticks_per_unit, N)
     downsampled = piano_roll.max(axis=1)  # preserve velocity if any note was on
     return downsampled

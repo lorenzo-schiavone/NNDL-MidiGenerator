@@ -1,6 +1,6 @@
 miditoolkit
 matplotlib
 numpy<2
-pandas
-scipy
 torch
+plotly
+ipykernel
