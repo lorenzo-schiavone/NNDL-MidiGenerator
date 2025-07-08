@@ -5,9 +5,9 @@ from glob import glob
 import mido
 from utils import *
 
-midi_paths = list(glob("./maestro-v1.0.0/2004/*.midi")) 
+midi_paths = list(glob("../data/*.mid")) 
 
-mid = mido.MidiFile(midi_paths[1], clip=True)
+mid = mido.MidiFile(midi_paths[0], clip=True)
 
 # for m in mid.tracks[1][:1000]:
 #     print(m)
@@ -23,11 +23,15 @@ mid = mido.MidiFile(midi_paths[1], clip=True)
 #         print(f'error with track {i}')
 # plt.show()
 
-    
+print(len((mid.tracks)))
+
+
 arr = track2seq(mid.tracks[1])
 arr = np.array(arr).T
 print(arr.shape)
-np.save(midi_paths[1].split('/')[-1].split('.')[-2], arr)
+np.save(midi_paths[0].split('/')[-1].split('.')[-2], arr)
+
+
 # # result_array = downsample_piano_roll(mid2arry(mid)[:100000],mid.ticks_per_beat, 1/8)
 # plt.figure(figsize=(12, 4))
 # plt.imshow(arr[:100,:])
